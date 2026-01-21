@@ -19,7 +19,7 @@ class display_project_serializer(serializers.ModelSerializer) :
         model = Project
         fields = ["name","descriptions","price","prototype_url","images"]
 
-class project_images_serializer(serializers.ModelSerializer):
+class create_project_images_serializer(serializers.ModelSerializer):
     class Meta :
         model = ProjectImage
         fields = "__all__"
