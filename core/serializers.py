@@ -23,3 +23,10 @@ class create_project_images_serializer(serializers.ModelSerializer):
     class Meta :
         model = ProjectImage
         fields = "__all__"
+
+class add_to_wishlist_serializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Wishlist
+        fields = ["project","user","created_at"]
+
+        read_only_fields = ["user"]
