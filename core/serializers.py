@@ -30,3 +30,8 @@ class add_to_wishlist_serializer(serializers.ModelSerializer) :
         fields = ["project","user","created_at"]
 
         read_only_fields = ["user"]
+
+class wishlist_serializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Wishlist
+        fields = "__all__"
