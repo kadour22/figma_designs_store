@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 from rest_framework import status
 from .serializers import *
 from .models import *
@@ -39,4 +40,15 @@ class project_image_service(APIView) :
         if serializers.is_valid() :
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class wishlist_service(APIView) :
+    def get(self, request) :
+        pass
+    def post(self, request) :
+        serializer = add_to_wishlist_serializer(data = request.data) 
+        with transaction.atomic() :
+            if serializer.is_valid() :
+                serializer.save(user = request.user)
+                return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
