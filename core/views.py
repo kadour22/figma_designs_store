@@ -44,7 +44,11 @@ class project_image_service(APIView) :
 
 class wishlist_service(APIView) :
     def get(self, request) :
-        pass
+        
+        wishlist = Wishlist.objects.select_related("user").filter(user=request.user)
+        serializer = wishlist_serializer(wishlist, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request) :
         serializer = add_to_wishlist_serializer(data = request.data) 
         with transaction.atomic() :
